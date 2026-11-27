@@ -1,29 +1,2813 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="it">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>URBAN STYLE PARRUCCHIERI — Calcinelli | L'arte del tuo stile</title>
-    <meta
-      name="description"
-      content="Salone URBAN STYLE PARRUCCHIERI a Calcinelli (Via Villa Franca 2, Colli al Metauro). Tour 3D interattivo, Balayage & Piega a Onde, prenotazione intelligente e Club Fedeltà Spotly."
-    />
-    <meta property="og:title" content="URBAN STYLE PARRUCCHIERI — Calcinelli" />
-    <meta
-      property="og:description"
-      content="L'arte del tuo stile a Calcinelli. Scopri il salone in 3D e prenota la tua poltrona."
-    />
-    <meta property="og:type" content="website" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body class="bg-[#0E0E10] text-[#F6F3EE] antialiased selection:bg-[#C89B6E]/30 selection:text-[#F6F3EE]">
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>URBAN STYLE PARRUCCHIERI — Calcinelli | L'arte del tuo stile</title>
+  <meta name="description" content="URBAN STYLE PARRUCCHIERI, Via Villa Franca 2, Calcinelli - Colli al Metauro (PU). Esperienza 3D cinematografica, tour del salone, prenotazione online e Club Fedeltà Spotly." />
+  <meta property="og:title" content="URBAN STYLE PARRUCCHIERI — Calcinelli" />
+  <meta property="og:description" content="L'arte del tuo stile a Calcinelli. Scopri il salone in 3D e prenota la tua poltrona." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-dark: #0E0E10;
+      --bg-dark-elevated: #161619;
+      --bg-cream: #F6F3EE;
+      --bg-white: #FFFFFF;
+      --accent-honey: #C89B6E;
+      --accent-gold: #D9B789;
+      --accent-bronze: #8A623B;
+      --text-light: #F6F3EE;
+      --text-dark: #0E0E10;
+      --border-dark: rgba(255, 255, 255, 0.11);
+      --border-light: rgba(14, 14, 16, 0.11);
+      --font-serif: "Playfair Display", Georgia, Cambria, "Times New Roman", serif;
+      --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --radius-lg: 16px;
+      --radius-md: 10px;
+      --radius-sm: 6px;
+      --container-max: 1280px;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-family: var(--font-sans);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      margin: 0;
+      background-color: var(--bg-dark);
+      color: var(--text-light);
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    button, input, select, textarea {
+      font: inherit;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--accent-honey);
+      outline-offset: 2px;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .container {
+      width: 100%;
+      max-width: var(--container-max);
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+
+    @media (min-width: 640px) {
+      .container {
+        padding-left: 2rem;
+        padding-right: 2rem;
+      }
+    }
+
+    /* ================= NAVBAR (3-ZONE CONTRACT) ================= */
+    .site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 60;
+      transition: background-color 200ms ease, border-color 200ms ease;
+      background: linear-gradient(to bottom, rgba(14, 14, 16, 0.78), transparent);
+      border-bottom: 1px solid transparent;
+    }
+
+    .site-header.is-scrolled,
+    .site-header.menu-open {
+      background: rgba(14, 14, 16, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom-color: var(--border-dark);
+    }
+
+    .nav-bar {
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+
+    .brand-wordmark {
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--text-light);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    @media (min-width: 640px) {
+      .brand-wordmark {
+        font-size: 1.25rem;
+      }
+    }
+
+    .nav-links {
+      display: none;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    @media (min-width: 768px) {
+      .nav-links {
+        display: flex;
+      }
+    }
+
+    .nav-link {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: rgba(246, 243, 238, 0.85);
+      padding: 0.25rem 0;
+      border-bottom: 1px solid transparent;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: color 150ms ease, border-color 150ms ease;
+    }
+
+    .nav-link:hover {
+      color: var(--text-light);
+      border-bottom-color: var(--accent-honey);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-shrink: 0;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.55rem;
+      padding: 0.65rem 1.1rem;
+      border-radius: var(--radius-sm);
+      border: 0;
+      background-color: var(--accent-honey);
+      color: var(--text-dark);
+      font-size: 0.875rem;
+      font-weight: 600;
+      white-space: nowrap;
+      flex-shrink: 0;
+      cursor: pointer;
+      transition: background-color 150ms ease, transform 150ms ease;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--accent-gold);
+    }
+
+    .btn-primary-lg {
+      padding: 0.9rem 1.5rem;
+      font-size: 0.95rem;
+    }
+
+    .btn-dark {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.55rem;
+      padding: 0.9rem 1.5rem;
+      border-radius: var(--radius-sm);
+      border: 0;
+      background-color: var(--bg-dark);
+      color: var(--text-light);
+      font-size: 0.95rem;
+      font-weight: 600;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: background-color 150ms ease;
+    }
+
+    .btn-dark:hover {
+      background-color: #1f1f24;
+    }
+
+    .mobile-menu-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-sm);
+      border: 0;
+      background: transparent;
+      color: var(--text-light);
+      cursor: pointer;
+    }
+
+    .mobile-menu-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    @media (min-width: 768px) {
+      .mobile-menu-btn {
+        display: none;
+      }
+    }
+
+    .mobile-drawer {
+      display: none;
+      flex-direction: column;
+      gap: 0.25rem;
+      padding: 1rem;
+      border-top: 1px solid var(--border-dark);
+      background: rgba(14, 14, 16, 0.96);
+    }
+
+    .mobile-drawer.is-open {
+      display: flex;
+    }
+
+    @media (min-width: 768px) {
+      .mobile-drawer.is-open {
+        display: none;
+      }
+    }
+
+    .mobile-drawer a {
+      padding: 0.7rem 0.75rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: rgba(246, 243, 238, 0.9);
+    }
+
+    .mobile-drawer a:hover {
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--accent-gold);
+    }
+
+    /* ================= ACT 1: HERO PORTAL 3D ================= */
+    .hero-portal-section {
+      position: relative;
+      height: 200vh;
+      background-color: var(--bg-dark);
+    }
+
+    .hero-sticky {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .hero-layer {
+      position: absolute;
+      inset: 0;
+      will-change: transform, opacity;
+    }
+
+    .hero-layer img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero-interior-layer {
+      opacity: 0;
+      transform: scale(1.14) translateZ(0);
+    }
+
+    .hero-exterior-layer {
+      transform-origin: 39% 54%;
+      transform: scale(1) translateZ(0);
+      opacity: 1;
+    }
+
+    .hero-fallback {
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 40% 50%, #2a2017, #0e0e10 72%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-serif);
+      font-size: 1.75rem;
+      color: var(--accent-honey);
+      letter-spacing: 0.12em;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .hero-scrim {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(
+        to top,
+        rgba(14, 14, 16, 0.92) 0%,
+        rgba(14, 14, 16, 0.45) 52%,
+        rgba(14, 14, 16, 0.56) 100%
+      );
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 10;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding-top: 5rem;
+      padding-bottom: 2.75rem;
+      will-change: transform, opacity;
+    }
+
+    @media (min-width: 640px) {
+      .hero-content {
+        padding-bottom: 3.75rem;
+      }
+    }
+
+    .hero-copy-box {
+      max-width: 44rem;
+    }
+
+    .hero-eyebrow {
+      margin: 0 0 0.75rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      color: var(--accent-gold);
+    }
+
+    .hero-title {
+      margin: 0 0 1rem;
+      font-family: var(--font-serif);
+      font-size: clamp(2.25rem, 4.3vw, 3.85rem);
+      font-weight: 600;
+      line-height: 1.08;
+      letter-spacing: -0.01em;
+      color: var(--text-light);
+      text-wrap: balance;
+    }
+
+    .hero-subtitle {
+      margin: 0 0 1.75rem;
+      max-width: 36rem;
+      font-size: 1rem;
+      line-height: 1.6;
+      color: rgba(246, 243, 238, 0.86);
+    }
+
+    .hero-cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1.25rem;
+    }
+
+    .hero-scroll-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      color: rgba(246, 243, 238, 0.86);
+      padding: 0.5rem 0;
+      transition: color 150ms ease;
+    }
+
+    .hero-scroll-link:hover {
+      color: var(--accent-gold);
+    }
+
+    /* ================= SECTION SHARED TYPOGRAPHY ================= */
+    .section-cream {
+      background-color: var(--bg-cream);
+      color: var(--text-dark);
+      padding: 5rem 0;
+    }
+
+    .section-dark {
+      background-color: var(--bg-dark);
+      color: var(--text-light);
+      padding: 5rem 0;
+    }
+
+    @media (min-width: 640px) {
+      .section-cream,
+      .section-dark {
+        padding: 6.5rem 0;
+      }
+    }
+
+    .section-kicker-light {
+      margin: 0 0 0.5rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      color: var(--accent-bronze);
+    }
+
+    .section-kicker-dark {
+      margin: 0 0 0.5rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      color: var(--accent-gold);
+    }
+
+    .section-heading {
+      margin: 0;
+      font-family: var(--font-serif);
+      font-size: clamp(1.85rem, 3.2vw, 2.75rem);
+      font-weight: 600;
+      line-height: 1.15;
+      text-wrap: balance;
+    }
+
+    /* ================= ACT 2: SALON TOUR 3D ================= */
+    .tour-header {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      margin-bottom: 2.5rem;
+    }
+
+    @media (min-width: 1024px) {
+      .tour-header {
+        flex-direction: row;
+        align-items: flex-end;
+        justify-content: space-between;
+        margin-bottom: 3rem;
+      }
+    }
+
+    .tour-header-copy {
+      max-width: 40rem;
+    }
+
+    .tour-lead {
+      margin: 0;
+      max-width: 26rem;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: rgba(14, 14, 16, 0.76);
+    }
+
+    .perspective-stage {
+      perspective: 1200px;
+    }
+
+    .tour-frame-3d {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background-color: var(--bg-dark-elevated);
+      border: 1px solid var(--border-light);
+      box-shadow: 0 24px 64px -20px rgba(14, 14, 16, 0.28);
+      transform-style: preserve-3d;
+      transition: transform 200ms ease-out;
+    }
+
+    @media (min-width: 640px) {
+      .tour-frame-3d {
+        aspect-ratio: 16 / 9;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .tour-frame-3d {
+        max-height: 540px;
+      }
+    }
+
+    .tour-frame-3d img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    .tour-vignette {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(
+        to top,
+        rgba(14, 14, 16, 0.72) 0%,
+        transparent 55%,
+        rgba(14, 14, 16, 0.2) 100%
+      );
+    }
+
+    @keyframes hotspot-pulse {
+      0% {
+        transform: scale(0.95);
+        opacity: 0.78;
+      }
+      70% {
+        transform: scale(1.9);
+        opacity: 0;
+      }
+      100% {
+        transform: scale(1.9);
+        opacity: 0;
+      }
+    }
+
+    .hotspot-btn {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      z-index: 20;
+      width: 44px;
+      height: 44px;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .hotspot-ring {
+      position: absolute;
+      inset: 4px;
+      border-radius: 999px;
+      background: rgba(200, 155, 110, 0.6);
+      animation: hotspot-pulse 2.4s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+    }
+
+    .hotspot-dot {
+      position: relative;
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      background: rgba(14, 14, 16, 0.88);
+      color: var(--text-light);
+      border: 1.5px solid var(--accent-gold);
+      transition: transform 150ms ease, background-color 150ms ease, color 150ms ease;
+    }
+
+    .hotspot-btn:hover .hotspot-dot,
+    .hotspot-btn.is-active .hotspot-dot {
+      background: var(--accent-honey);
+      color: var(--text-dark);
+      border-color: var(--text-light);
+      transform: scale(1.1);
+    }
+
+    .glass-card-desktop {
+      display: none;
+      position: absolute;
+      bottom: 1.25rem;
+      left: 1.25rem;
+      max-width: 24rem;
+      z-index: 30;
+      padding: 1.25rem;
+      border-radius: 12px;
+      background: rgba(14, 14, 16, 0.84);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(200, 155, 110, 0.42);
+      color: var(--text-light);
+      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.55);
+    }
+
+    @media (min-width: 768px) {
+      .glass-card-desktop.is-visible {
+        display: block;
+      }
+    }
+
+    .glass-card-mobile {
+      display: none;
+      margin-top: 1rem;
+      padding: 1.25rem;
+      border-radius: 12px;
+      background: var(--bg-dark);
+      border: 1px solid rgba(200, 155, 110, 0.35);
+      color: var(--text-light);
+      box-shadow: 0 16px 36px rgba(14, 14, 16, 0.22);
+    }
+
+    .glass-card-mobile.is-visible {
+      display: block;
+    }
+
+    @media (min-width: 768px) {
+      .glass-card-mobile.is-visible {
+        display: none;
+      }
+    }
+
+    .glass-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.75rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .glass-meta {
+      margin: 0;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--accent-gold);
+    }
+
+    .glass-close {
+      padding: 0.25rem;
+      border: 0;
+      border-radius: 6px;
+      background: transparent;
+      color: rgba(246, 243, 238, 0.7);
+      cursor: pointer;
+    }
+
+    .glass-close:hover {
+      color: var(--text-light);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .glass-title {
+      margin: 0 0 0.45rem;
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--text-light);
+    }
+
+    .glass-desc {
+      margin: 0 0 1rem;
+      font-size: 0.85rem;
+      line-height: 1.55;
+      color: rgba(246, 243, 238, 0.85);
+    }
+
+    .zone-strip {
+      margin-top: 1.5rem;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    @media (min-width: 768px) {
+      .zone-strip {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .zone-tab {
+      text-align: left;
+      padding: 1.2rem;
+      border-radius: 12px;
+      border: 1px solid var(--border-light);
+      background: var(--bg-white);
+      color: var(--text-dark);
+      cursor: pointer;
+      transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease;
+    }
+
+    .zone-tab:hover {
+      border-color: rgba(200, 155, 110, 0.7);
+    }
+
+    .zone-tab.is-active {
+      background: var(--bg-dark);
+      color: var(--text-light);
+      border-color: var(--accent-honey);
+    }
+
+    .zone-tab-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+      color: var(--accent-bronze);
+      margin-bottom: 0.35rem;
+    }
+
+    .zone-tab.is-active .zone-tab-meta {
+      color: var(--accent-gold);
+    }
+
+    .zone-tab-title {
+      margin: 0;
+      font-family: var(--font-serif);
+      font-size: 1rem;
+      font-weight: 600;
+      line-height: 1.35;
+    }
+
+    /* ================= ACT 3: RESULTS 3D & SERVICES ================= */
+    .results-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+      align-items: stretch;
+      margin-top: 3rem;
+    }
+
+    @media (min-width: 1024px) {
+      .results-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+      }
+    }
+
+    .balayage-card-3d {
+      position: relative;
+      height: 100%;
+      min-height: 400px;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: var(--bg-dark-elevated);
+      border: 1px solid var(--border-dark);
+      box-shadow: 0 30px 70px -24px rgba(0, 0, 0, 0.85);
+      transform-style: preserve-3d;
+      transition: transform 200ms ease-out;
+    }
+
+    @media (min-width: 640px) {
+      .balayage-card-3d {
+        min-height: 480px;
+      }
+    }
+
+    .balayage-card-3d img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: filter 300ms ease;
+    }
+
+    .balayage-card-3d img.is-before {
+      filter: saturate(0.45) brightness(0.75) contrast(0.95);
+    }
+
+    .balayage-scrim {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(
+        to top,
+        rgba(14, 14, 16, 0.92) 0%,
+        rgba(14, 14, 16, 0.22) 55%,
+        transparent 100%
+      );
+    }
+
+    .balayage-topbar {
+      position: absolute;
+      top: 1.25rem;
+      left: 1.25rem;
+      right: 1.25rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+
+    .balayage-label {
+      margin: 0;
+      padding: 0.45rem 0.85rem;
+      border-radius: var(--radius-sm);
+      background: rgba(14, 14, 16, 0.78);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border-dark);
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-light);
+    }
+
+    .compare-toggle {
+      display: inline-flex;
+      padding: 0.25rem;
+      border-radius: 8px;
+      background: rgba(14, 14, 16, 0.82);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border-dark);
+    }
+
+    .compare-btn {
+      border: 0;
+      border-radius: 6px;
+      padding: 0.35rem 0.75rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      background: transparent;
+      color: rgba(246, 243, 238, 0.78);
+      cursor: pointer;
+      transition: background-color 150ms ease, color 150ms ease;
+    }
+
+    .compare-btn.is-active {
+      background: var(--accent-honey);
+      color: var(--text-dark);
+    }
+
+    .balayage-caption {
+      position: absolute;
+      bottom: 1.5rem;
+      left: 1.5rem;
+      right: 1.5rem;
+    }
+
+    .balayage-caption-kicker {
+      margin: 0 0 0.25rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--accent-gold);
+    }
+
+    .balayage-caption-title {
+      margin: 0;
+      font-family: var(--font-serif);
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: var(--text-light);
+    }
+
+    .services-stack {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 1.25rem;
+    }
+
+    .service-card {
+      border-radius: var(--radius-lg);
+      background: var(--bg-dark-elevated);
+      border: 1px solid var(--border-dark);
+      padding: 1.65rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: border-color 200ms ease;
+    }
+
+    .service-card:hover {
+      border-color: rgba(200, 155, 110, 0.6);
+    }
+
+    .service-num {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+      color: var(--accent-gold);
+      margin-bottom: 0.4rem;
+    }
+
+    .service-title {
+      margin: 0 0 0.5rem;
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--text-light);
+    }
+
+    .service-desc {
+      margin: 0 0 1.25rem;
+      font-size: 0.9rem;
+      line-height: 1.58;
+      color: rgba(246, 243, 238, 0.78);
+    }
+
+    .service-footer {
+      padding-top: 1rem;
+      border-top: 1px solid var(--border-dark);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+
+    .service-consult {
+      font-size: 0.78rem;
+      color: rgba(246, 243, 238, 0.7);
+    }
+
+    .btn-link-gold {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: var(--accent-gold);
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: color 150ms ease;
+    }
+
+    .btn-link-gold:hover {
+      color: var(--text-light);
+    }
+
+    /* ================= ACT 4: BOOKING & SPOTLY ================= */
+    .act4-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      align-items: start;
+      margin-top: 3rem;
+    }
+
+    @media (min-width: 1024px) {
+      .act4-grid {
+        grid-template-columns: 7fr 5fr;
+        gap: 2.5rem;
+      }
+    }
+
+    .booking-panel {
+      background: var(--bg-white);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      box-shadow: 0 18px 50px -24px rgba(14, 14, 16, 0.16);
+    }
+
+    @media (min-width: 640px) {
+      .booking-panel {
+        padding: 2rem;
+      }
+    }
+
+    .hours-strip {
+      padding-bottom: 1.25rem;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .hours-title {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--accent-bronze);
+      margin-bottom: 0.75rem;
+    }
+
+    .hours-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.4rem 1.5rem;
+      font-size: 0.85rem;
+      color: rgba(14, 14, 16, 0.82);
+      font-variant-numeric: tabular-nums;
+    }
+
+    @media (min-width: 640px) {
+      .hours-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .hours-grid p {
+      margin: 0;
+    }
+
+    .form-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .field-row-2 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    @media (min-width: 640px) {
+      .field-row-2 {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .field-label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 0.4rem;
+    }
+
+    .field-input {
+      width: 100%;
+      padding: 0.65rem 0.85rem;
+      border-radius: 8px;
+      border: 1px solid rgba(14, 14, 16, 0.22);
+      background: rgba(246, 243, 238, 0.55);
+      color: var(--text-dark);
+      font-size: 0.9rem;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .field-input:focus {
+      outline: none;
+      border-color: var(--accent-bronze);
+    }
+
+    .day-status-box {
+      border-radius: 8px;
+      border: 1px solid var(--border-light);
+      background: var(--bg-cream);
+      padding: 0.75rem 0.9rem;
+    }
+
+    .day-status-kicker {
+      margin: 0;
+      font-size: 0.75rem;
+      color: rgba(14, 14, 16, 0.65);
+    }
+
+    .day-status-text {
+      margin: 0.2rem 0 0;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .closed-alert {
+      border-radius: 8px;
+      border: 1px solid rgba(180, 83, 9, 0.28);
+      background: #fffbeb;
+      color: #78350f;
+      padding: 0.85rem 1rem;
+      font-size: 0.875rem;
+    }
+
+    .slots-group {
+      margin-bottom: 0.85rem;
+    }
+
+    .slots-group:last-child {
+      margin-bottom: 0;
+    }
+
+    .slots-period-label {
+      margin: 0 0 0.45rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--accent-bronze);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .slots-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+    }
+
+    .slot-btn {
+      padding: 0.45rem 0.75rem;
+      border-radius: 6px;
+      border: 1px solid rgba(14, 14, 16, 0.16);
+      background: rgba(246, 243, 238, 0.65);
+      color: var(--text-dark);
+      font-size: 0.78rem;
+      font-weight: 500;
+      font-variant-numeric: tabular-nums;
+      cursor: pointer;
+      transition: background-color 140ms ease, border-color 140ms ease, color 140ms ease;
+    }
+
+    .slot-btn:hover {
+      border-color: var(--accent-honey);
+    }
+
+    .slot-btn.is-picked {
+      background: var(--bg-dark);
+      color: var(--text-light);
+      border-color: var(--bg-dark);
+    }
+
+    .field-error {
+      margin: 0.35rem 0 0;
+      font-size: 0.78rem;
+      color: #b91c1c;
+    }
+
+    .webhook-toggle {
+      border: 0;
+      padding: 0;
+      background: transparent;
+      color: var(--accent-bronze);
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      cursor: pointer;
+      align-self: flex-start;
+    }
+
+    .webhook-toggle:hover {
+      color: var(--text-dark);
+    }
+
+    .webhook-box {
+      margin-top: 0.5rem;
+    }
+
+    /* Confirmation Card */
+    .confirm-card {
+      border-radius: 12px;
+      background: var(--bg-dark);
+      color: var(--text-light);
+      padding: 1.5rem;
+      border: 1px solid rgba(200, 155, 110, 0.42);
+    }
+
+    .confirm-header {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      margin-bottom: 1rem;
+    }
+
+    .confirm-badge {
+      width: 38px;
+      height: 38px;
+      border-radius: 999px;
+      background: var(--accent-honey);
+      color: var(--text-dark);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .confirm-dl {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.8rem;
+      padding: 1rem 0;
+      margin: 0 0 1.1rem;
+      border-top: 1px solid var(--border-dark);
+      border-bottom: 1px solid var(--border-dark);
+      font-size: 0.875rem;
+    }
+
+    @media (min-width: 640px) {
+      .confirm-dl {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .confirm-dl dt {
+      font-size: 0.75rem;
+      color: rgba(246, 243, 238, 0.6);
+    }
+
+    .confirm-dl dd {
+      margin: 0.15rem 0 0;
+      font-weight: 500;
+      color: var(--text-light);
+    }
+
+    .whatsapp-preview {
+      margin: 0 0 1.25rem;
+      padding: 0.9rem;
+      border-radius: 8px;
+      background: var(--bg-dark-elevated);
+      border: 1px solid var(--border-dark);
+      font-size: 0.78rem;
+      line-height: 1.55;
+      white-space: pre-wrap;
+      color: rgba(246, 243, 238, 0.88);
+    }
+
+    .confirm-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .btn-outline-light {
+      padding: 0.75rem 1rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      background: transparent;
+      color: var(--text-light);
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .btn-outline-light:hover {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .history-wrap {
+      margin-top: 1.75rem;
+      padding-top: 1.4rem;
+      border-top: 1px solid var(--border-light);
+    }
+
+    .history-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .history-title {
+      margin: 0;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: rgba(14, 14, 16, 0.75);
+    }
+
+    .history-clear {
+      border: 0;
+      background: transparent;
+      font-size: 0.75rem;
+      color: rgba(14, 14, 16, 0.58);
+      cursor: pointer;
+    }
+
+    .history-clear:hover {
+      color: #b91c1c;
+    }
+
+    .history-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .history-item {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      padding: 0.7rem 0.9rem;
+      border-radius: 8px;
+      background: var(--bg-cream);
+      border: 1px solid rgba(14, 14, 16, 0.08);
+      font-size: 0.78rem;
+    }
+
+    /* Spotly Right Column */
+    .spotly-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .spotly-card {
+      border-radius: var(--radius-lg);
+      background: var(--bg-dark);
+      color: var(--text-light);
+      padding: 1.75rem;
+      border: 1px solid rgba(200, 155, 110, 0.32);
+      box-shadow: 0 24px 60px -24px rgba(14, 14, 16, 0.42);
+    }
+
+    .spotly-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.65rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--accent-gold);
+    }
+
+    .spotly-title {
+      margin: 0 0 0.55rem;
+      font-family: var(--font-serif);
+      font-size: 1.55rem;
+      font-weight: 600;
+    }
+
+    .spotly-copy {
+      margin: 0 0 1.25rem;
+      font-size: 0.875rem;
+      line-height: 1.6;
+      color: rgba(246, 243, 238, 0.8);
+    }
+
+    .stamp-preview {
+      border-radius: 12px;
+      background: var(--bg-dark-elevated);
+      border: 1px solid var(--border-dark);
+      padding: 1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .stamp-preview-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      color: rgba(246, 243, 238, 0.75);
+      margin-bottom: 0.75rem;
+    }
+
+    .stamp-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.55rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .stamp-cell {
+      height: 44px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: var(--bg-dark);
+      color: rgba(246, 243, 238, 0.45);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .stamp-cell.is-filled {
+      background: var(--accent-honey);
+      border-color: var(--accent-honey);
+      color: var(--text-dark);
+    }
+
+    .stamp-cell.is-reward {
+      background: rgba(200, 155, 110, 0.16);
+      border-color: var(--accent-honey);
+      color: var(--accent-gold);
+    }
+
+    .review-card {
+      border-radius: var(--radius-lg);
+      background: var(--bg-white);
+      border: 1px solid var(--border-light);
+      padding: 1.75rem;
+    }
+
+    .stars-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin: 1rem 0 1.25rem;
+    }
+
+    .star-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+      border: 1px solid rgba(14, 14, 16, 0.14);
+      background: rgba(246, 243, 238, 0.65);
+      color: rgba(14, 14, 16, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: border-color 150ms ease, color 150ms ease;
+    }
+
+    .star-btn:hover {
+      border-color: var(--accent-honey);
+    }
+
+    .star-btn.is-lit {
+      color: var(--accent-honey);
+      border-color: var(--accent-honey);
+    }
+
+    .review-outcome-box {
+      border-radius: 12px;
+      background: var(--bg-cream);
+      border: 1px solid rgba(200, 155, 110, 0.45);
+      padding: 1rem;
+    }
+
+    /* ================= FOOTER ================= */
+    .site-footer {
+      background: var(--bg-dark);
+      color: var(--text-light);
+      border-top: 1px solid var(--border-dark);
+      padding: 3rem 0;
+    }
+
+    .footer-top {
+      display: flex;
+      flex-direction: column;
+      gap: 1.75rem;
+    }
+
+    @media (min-width: 768px) {
+      .footer-top {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+
+    .footer-brand {
+      margin: 0 0 0.5rem;
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+
+    .footer-info {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem 1.5rem;
+      font-size: 0.85rem;
+      color: rgba(246, 243, 238, 0.72);
+    }
+
+    .footer-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      font-size: 0.875rem;
+      color: rgba(246, 243, 238, 0.78);
+    }
+
+    .footer-nav a:hover {
+      color: var(--accent-gold);
+    }
+
+    .footer-bottom {
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border-dark);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 0.75rem;
+      font-size: 0.78rem;
+      color: rgba(246, 243, 238, 0.52);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+      .hotspot-ring {
+        animation: none;
+      }
+      .tour-frame-3d,
+      .balayage-card-3d {
+        transition: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header" id="site-header">
+    <div class="container nav-bar">
+      <a href="#esterno" class="brand-wordmark">URBAN STYLE</a>
+
+      <nav class="nav-links" aria-label="Navigazione principale">
+        <a href="#esterno" class="nav-link">Il Salone</a>
+        <a href="#tour" class="nav-link">Tour 3D</a>
+        <a href="#servizi" class="nav-link">Servizi</a>
+        <a href="#spotly" class="nav-link">Club Spotly</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button type="button" class="btn-primary" id="nav-book-btn">Prenota ora</button>
+        <button
+          type="button"
+          class="mobile-menu-btn"
+          id="mobile-menu-toggle"
+          aria-label="Apri menu"
+          aria-expanded="false"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <nav class="mobile-drawer" id="mobile-drawer" aria-label="Menu mobile">
+      <a href="#esterno">Il Salone</a>
+      <a href="#tour">Tour 3D</a>
+      <a href="#servizi">Servizi</a>
+      <a href="#spotly">Club Spotly</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ================= ATTO 1: HERO PORTAL 3D ================= -->
+    <section id="esterno" class="hero-portal-section" aria-label="Atto 1: Ingresso al salone">
+      <div class="hero-sticky">
+        <div class="hero-layer hero-interior-layer" id="hero-interior-layer">
+          <img
+            src="interno.jpg"
+            alt="Interno del salone URBAN STYLE PARRUCCHIERI con postazioni in legno miele"
+            id="hero-interior-img"
+          />
+        </div>
+
+        <div class="hero-layer hero-exterior-layer" id="hero-exterior-layer">
+          <img
+            src="esterno.jpg"
+            alt="Facciata esterna di URBAN STYLE PARRUCCHIERI in Via Villa Franca 2 a Calcinelli"
+            id="hero-exterior-img"
+          />
+        </div>
+
+        <div class="hero-scrim" aria-hidden="true"></div>
+
+        <div class="container hero-content" id="hero-copy">
+          <div class="hero-copy-box">
+            <p class="hero-eyebrow">Via Villa Franca 2 · Calcinelli — Colli al Metauro (PU)</p>
+            <h1 class="hero-title">URBAN STYLE — L&rsquo;arte del tuo stile a Calcinelli</h1>
+            <p class="hero-subtitle">
+              Legno caldo, architettura contemporanea e consulenza sartoriale per tagli,
+              balayage luminosi e rituali alla cheratina.
+            </p>
+            <div class="hero-cta-row">
+              <button type="button" class="btn-primary btn-primary-lg" id="hero-book-btn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                  <line x1="16" y1="2" x2="16" y2="6"></line>
+                  <line x1="8" y1="2" x2="8" y2="6"></line>
+                  <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+                <span>Prenota la tua poltrona</span>
+              </button>
+              <a href="#tour" class="hero-scroll-link">
+                <span>Scorri per entrare in salone</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <line x1="12" y1="5" x2="12" y2="19"></line>
+                  <polyline points="19 12 12 19 5 12"></polyline>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= ATTO 2: TOUR INTERATTIVO DEL SALONE ================= -->
+    <section id="tour" class="section-cream" aria-label="Atto 2: Tour interattivo del salone">
+      <div class="container">
+        <div class="tour-header">
+          <div class="tour-header-copy">
+            <p class="section-kicker-light">02. Tour interattivo del salone</p>
+            <h2 class="section-heading">Esplora gli spazi di URBAN STYLE in prospettiva 3D</h2>
+          </div>
+          <p class="tour-lead">
+            Muovi il cursore o tocca i punti luminosi all&rsquo;interno del salone per scoprire
+            ogni area dedicata al tuo stile.
+          </p>
+        </div>
+
+        <div class="perspective-stage">
+          <div class="tour-frame-3d" id="tour-frame-3d">
+            <img
+              src="interno.jpg"
+              alt="Tour interno interattivo di URBAN STYLE PARRUCCHIERI"
+              id="tour-interior-img"
+            />
+            <div class="tour-vignette" aria-hidden="true"></div>
+
+            <!-- 3 Hotspot Pulsanti -->
+            <button
+              type="button"
+              class="hotspot-btn"
+              data-hotspot="styling"
+              style="left: 18%; top: 48%;"
+              aria-label="Apri dettagli Postazioni Styling — Taglio Uomo & Piega a Onde"
+              aria-expanded="false"
+            >
+              <span class="hotspot-ring" aria-hidden="true"></span>
+              <span class="hotspot-dot">01</span>
+            </button>
+
+            <button
+              type="button"
+              class="hotspot-btn is-active"
+              data-hotspot="colorbar"
+              style="left: 51%; top: 54%;"
+              aria-label="Apri dettagli Color Bar — Balayage & Effetti Luce"
+              aria-expanded="true"
+            >
+              <span class="hotspot-ring" aria-hidden="true"></span>
+              <span class="hotspot-dot">02</span>
+            </button>
+
+            <button
+              type="button"
+              class="hotspot-btn"
+              data-hotspot="benessere"
+              style="left: 82%; top: 58%;"
+              aria-label="Apri dettagli Area Benessere — Trattamenti alla Cheratina"
+              aria-expanded="false"
+            >
+              <span class="hotspot-ring" aria-hidden="true"></span>
+              <span class="hotspot-dot">03</span>
+            </button>
+
+            <!-- Scheda Glassmorphism Desktop -->
+            <div class="glass-card-desktop is-visible" id="glass-card-desktop" role="region" aria-live="polite">
+              <div class="glass-top">
+                <p class="glass-meta" id="glass-meta-desktop"></p>
+                <button type="button" class="glass-close" id="glass-close-desktop" aria-label="Chiudi scheda area">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                  </svg>
+                </button>
+              </div>
+              <h3 class="glass-title" id="glass-title-desktop"></h3>
+              <p class="glass-desc" id="glass-desc-desktop"></p>
+              <button type="button" class="btn-primary" id="glass-book-desktop">
+                <span>Prenota questo servizio</span>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Scheda Mobile -->
+        <div class="glass-card-mobile is-visible" id="glass-card-mobile" role="region" aria-live="polite">
+          <div class="glass-top">
+            <p class="glass-meta" id="glass-meta-mobile"></p>
+            <button type="button" class="glass-close" id="glass-close-mobile" aria-label="Chiudi dettaglio mobile">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+          </div>
+          <h3 class="glass-title" id="glass-title-mobile"></h3>
+          <p class="glass-desc" id="glass-desc-mobile"></p>
+          <button type="button" class="btn-primary" style="width: 100%;" id="glass-book-mobile">
+            <span>Prenota questo servizio</span>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Selettore Rapido Aree -->
+        <div class="zone-strip">
+          <button type="button" class="zone-tab" data-zone="styling">
+            <span class="zone-tab-meta"><span>01. Postazioni Styling</span><span>Dettagli</span></span>
+            <p class="zone-tab-title">Postazioni Styling — Taglio Uomo &amp; Piega a Onde</p>
+          </button>
+          <button type="button" class="zone-tab is-active" data-zone="colorbar">
+            <span class="zone-tab-meta"><span>02. Color Bar</span><span>Dettagli</span></span>
+            <p class="zone-tab-title">Color Bar — Balayage &amp; Effetti Luce</p>
+          </button>
+          <button type="button" class="zone-tab" data-zone="benessere">
+            <span class="zone-tab-meta"><span>03. Area Benessere</span><span>Dettagli</span></span>
+            <p class="zone-tab-title">Area Benessere — Trattamenti alla Cheratina</p>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= ATTO 3: RISULTATI REALI IN PROSPETTIVA 3D ================= -->
+    <section id="servizi" class="section-dark" aria-label="Atto 3: Risultati reali e servizi principali">
+      <div class="container">
+        <div style="max-width: 42rem;">
+          <p class="section-kicker-dark">03. Risultati reali in prospettiva 3D</p>
+          <h2 class="section-heading">Luce naturale, fibra sana e movimento su misura</h2>
+        </div>
+
+        <div class="results-grid">
+          <div class="perspective-stage">
+            <div class="balayage-card-3d" id="balayage-card-3d">
+              <img
+                src="balayage.jpg"
+                alt="Prima e Dopo — Balayage luminoso miele caramello e piega a onde"
+                id="balayage-img"
+              />
+              <div class="balayage-scrim" aria-hidden="true"></div>
+
+              <div class="balayage-topbar">
+                <p class="balayage-label">Prima / Dopo — Balayage &amp; Piega a Onde</p>
+                <div class="compare-toggle" role="group" aria-label="Confronto prima e dopo">
+                  <button type="button" class="compare-btn" data-compare="prima">Prima</button>
+                  <button type="button" class="compare-btn is-active" data-compare="dopo">Dopo</button>
+                </div>
+              </div>
+
+              <div class="balayage-caption">
+                <p class="balayage-caption-kicker" id="balayage-kicker">
+                  Risultato Finale · Schiaritura Miele &amp; Onde Morbide
+                </p>
+                <p class="balayage-caption-title" id="balayage-title">
+                  Dimensione calda senza stacchi alla ricrescita
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="services-stack">
+            <article class="service-card">
+              <div>
+                <span class="service-num">01. Servizio Firma</span>
+                <h3 class="service-title">Taglio &amp; Styling Uomo</h3>
+                <p class="service-desc">
+                  Linee geometriche o classiche calibrate sulla struttura cranica, sfumature di
+                  precisione e definizione finale.
+                </p>
+              </div>
+              <div class="service-footer">
+                <span class="service-consult">Consulenza personalizzata in salone</span>
+                <button type="button" class="btn-link-gold" data-preselect="Taglio &amp; Styling Uomo">
+                  <span>Prenota questo servizio</span>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </button>
+              </div>
+            </article>
+
+            <article class="service-card">
+              <div>
+                <span class="service-num">02. Servizio Firma</span>
+                <h3 class="service-title">Taglio &amp; Piega Donna</h3>
+                <p class="service-desc">
+                  Volumi equilibrati, scalature leggere che seguono il movimento naturale e piega a
+                  onde morbide effetto seta.
+                </p>
+              </div>
+              <div class="service-footer">
+                <span class="service-consult">Consulenza personalizzata in salone</span>
+                <button type="button" class="btn-link-gold" data-preselect="Taglio &amp; Piega Donna">
+                  <span>Prenota questo servizio</span>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </button>
+              </div>
+            </article>
+
+            <article class="service-card">
+              <div>
+                <span class="service-num">03. Servizio Firma</span>
+                <h3 class="service-title">Balayage &amp; Cheratina</h3>
+                <p class="service-desc">
+                  Schiariture calde miele e caramello senza stacchi alla radice, abbinate a
+                  ricostruzione profonda alla cheratina.
+                </p>
+              </div>
+              <div class="service-footer">
+                <span class="service-consult">Consulenza personalizzata in salone</span>
+                <button type="button" class="btn-link-gold" data-preselect="Balayage &amp; Cheratina">
+                  <span>Prenota questo servizio</span>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </button>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= ATTO 4: PRENOTAZIONE + SPOTLY ================= -->
+    <section id="prenota" class="section-cream" aria-label="Atto 4: Prenotazione e Club Fedeltà Spotly">
+      <div class="container">
+        <div style="max-width: 42rem;">
+          <p class="section-kicker-light">04. Prenotazione &amp; Club Fedeltà</p>
+          <h2 class="section-heading">Prenota la tua poltrona a Calcinelli</h2>
+        </div>
+
+        <div class="act4-grid">
+          <!-- Modulo Prenotazione Intelligente -->
+          <div class="booking-panel">
+            <div class="hours-strip">
+              <div class="hours-title">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+                <span>Orari ufficiali del salone · Via Villa Franca 2</span>
+              </div>
+              <div class="hours-grid">
+                <p><strong>Mar · Gio · Ven:</strong> 08:30–12:30 / 14:30–19:00</p>
+                <p><strong>Mercoledì:</strong> 08:30–12:30 / 16:30–21:00</p>
+                <p><strong>Sabato:</strong> 08:30–18:00</p>
+                <p><strong>Dom · Lun:</strong> Chiuso</p>
+              </div>
+            </div>
+
+            <form id="booking-form" class="form-stack" novalidate>
+              <div>
+                <label class="field-label" for="booking-service">Servizio desiderato</label>
+                <select id="booking-service" class="field-input">
+                  <option value="Taglio Uomo &amp; Piega a Onde">Taglio Uomo &amp; Piega a Onde — Postazioni Styling</option>
+                  <option value="Balayage &amp; Effetti Luce" selected>Balayage &amp; Effetti Luce — Color Bar</option>
+                  <option value="Trattamenti alla Cheratina">Trattamenti alla Cheratina — Area Benessere</option>
+                  <option value="Taglio &amp; Styling Uomo">Taglio &amp; Styling Uomo — Styling Sartoriale</option>
+                  <option value="Taglio &amp; Piega Donna">Taglio &amp; Piega Donna — Taglio &amp; Movimento</option>
+                  <option value="Balayage &amp; Cheratina">Balayage &amp; Cheratina — Luce &amp; Ristrutturazione</option>
+                </select>
+                <p class="field-error" id="err-service" hidden></p>
+              </div>
+
+              <div class="field-row-2">
+                <div>
+                  <label class="field-label" for="booking-date">Data appuntamento</label>
+                  <input id="booking-date" type="date" class="field-input" />
+                  <p class="field-error" id="err-date" hidden></p>
+                </div>
+                <div class="day-status-box">
+                  <p class="day-status-kicker">Orario del giorno scelto</p>
+                  <p class="day-status-text" id="day-status-text"></p>
+                </div>
+              </div>
+
+              <div>
+                <span class="field-label">Fascia oraria disponibile</span>
+                <div id="slots-container"></div>
+                <p class="field-error" id="err-slot" hidden></p>
+              </div>
+
+              <div class="field-row-2">
+                <div>
+                  <label class="field-label" for="booking-name">Nome e Cognome</label>
+                  <input id="booking-name" type="text" class="field-input" placeholder="Es. Giulia Rossi" />
+                  <p class="field-error" id="err-name" hidden></p>
+                </div>
+                <div>
+                  <label class="field-label" for="booking-whatsapp">Telefono WhatsApp</label>
+                  <input id="booking-whatsapp" type="tel" class="field-input" placeholder="Es. +39 333 1234567" />
+                  <p class="field-error" id="err-whatsapp" hidden></p>
+                </div>
+              </div>
+
+              <div>
+                <button type="button" class="webhook-toggle" id="webhook-toggle" aria-expanded="false">
+                  Configura notifica webhook opzionale
+                </button>
+                <div class="webhook-box" id="webhook-box" hidden>
+                  <label class="field-label" style="font-size: 0.78rem; font-weight: 500;" for="booking-webhook">
+                    URL Webhook (es. Make / Zapier / n8n — opzionale)
+                  </label>
+                  <input id="booking-webhook" type="url" class="field-input" placeholder="https://hook.eu1.make.com/..." />
+                </div>
+              </div>
+
+              <button type="submit" class="btn-dark" style="width: 100%;">
+                <span>Conferma Appuntamento</span>
+              </button>
+            </form>
+
+            <!-- Conferma Elegante -->
+            <div id="booking-confirm-card" class="confirm-card" role="status" aria-live="polite" hidden>
+              <div class="confirm-header">
+                <span class="confirm-badge" aria-hidden="true">✓</span>
+                <div>
+                  <p style="margin: 0; font-size: 0.75rem; color: var(--accent-gold); font-weight: 500;">
+                    Richiesta salvata e pronta per WhatsApp
+                  </p>
+                  <h3 style="margin: 0.15rem 0 0; font-family: var(--font-serif); font-size: 1.5rem;">
+                    Appuntamento preparato
+                  </h3>
+                </div>
+              </div>
+
+              <dl class="confirm-dl" id="confirm-details"></dl>
+
+              <p style="margin: 0 0 0.45rem; font-size: 0.75rem; color: rgba(246, 243, 238, 0.65);">
+                Anteprima messaggio strutturato per +39 350 944 2307:
+              </p>
+              <pre class="whatsapp-preview" id="confirm-wa-preview"></pre>
+              <p id="webhook-status-msg" style="margin: 0 0 1rem; font-size: 0.78rem; color: var(--accent-gold);" hidden></p>
+
+              <div class="confirm-actions">
+                <a id="confirm-wa-link" href="#" target="_blank" rel="noopener noreferrer" class="btn-primary">
+                  <span>Invia su WhatsApp (+39 350 944 2307)</span>
+                </a>
+                <button type="button" id="new-booking-btn" class="btn-outline-light">
+                  Nuova prenotazione
+                </button>
+              </div>
+            </div>
+
+            <!-- Storico LocalStorage -->
+            <div class="history-wrap" id="history-wrap" hidden>
+              <div class="history-header">
+                <h3 class="history-title" id="history-title"></h3>
+                <button type="button" class="history-clear" id="history-clear-btn">Cancella storico</button>
+              </div>
+              <ul class="history-list" id="history-list"></ul>
+            </div>
+          </div>
+
+          <!-- Spotly Club Fedeltà + Recensioni 1-5 Stelle -->
+          <div id="spotly" class="spotly-stack">
+            <div class="spotly-card">
+              <div class="spotly-top">
+                <span>Powered by Spotly</span>
+                <span aria-hidden="true">★</span>
+              </div>
+              <h3 class="spotly-title">Club Fedeltà &amp; Recensioni 5⭐</h3>
+              <p class="spotly-copy">
+                Porta la tua tessera timbri digitale sempre con te sul telefono, senza app
+                ingombranti o carte smarrite: ad ogni visita in salone accumuli 1 timbro.
+              </p>
+
+              <div class="stamp-preview">
+                <div class="stamp-preview-head">
+                  <span>Tessera Digitale URBAN STYLE</span>
+                  <strong style="color: var(--accent-gold); font-variant-numeric: tabular-nums;">8 timbri = Premio</strong>
+                </div>
+                <div class="stamp-grid" aria-label="Anteprima tessera 8 timbri">
+                  <div class="stamp-cell is-filled">✓</div>
+                  <div class="stamp-cell is-filled">✓</div>
+                  <div class="stamp-cell is-filled">✓</div>
+                  <div class="stamp-cell">4</div>
+                  <div class="stamp-cell">5</div>
+                  <div class="stamp-cell">6</div>
+                  <div class="stamp-cell">7</div>
+                  <div class="stamp-cell is-reward">Omaggio</div>
+                </div>
+                <p style="margin: 0; font-size: 0.78rem; font-weight: 500; color: var(--accent-gold);">
+                  8 timbri = Trattamento Ristrutturante Omaggio
+                </p>
+              </div>
+
+              <a
+                href="https://spotly-pro.vercel.app/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn-primary"
+                style="width: 100%;"
+              >
+                <span>Apri Tessera Digitale su Spotly</span>
+              </a>
+            </div>
+
+            <div class="review-card">
+              <p class="section-kicker-light" style="margin-bottom: 0.25rem;">La tua opinione conta</p>
+              <h3 style="margin: 0 0 0.4rem; font-family: var(--font-serif); font-size: 1.3rem;">
+                Com&rsquo;è stata la tua esperienza in salone?
+              </h3>
+              <p style="margin: 0; font-size: 0.875rem; color: rgba(14, 14, 16, 0.72);">
+                Seleziona da 1 a 5 stelle per lasciarci una valutazione rapida.
+              </p>
+
+              <div class="stars-row" role="radiogroup" aria-label="Valutazione da 1 a 5 stelle" id="stars-group">
+                <button type="button" class="star-btn" role="radio" aria-checked="false" aria-label="Valuta 1 stella" data-star="1">★</button>
+                <button type="button" class="star-btn" role="radio" aria-checked="false" aria-label="Valuta 2 stelle" data-star="2">★</button>
+                <button type="button" class="star-btn" role="radio" aria-checked="false" aria-label="Valuta 3 stelle" data-star="3">★</button>
+                <button type="button" class="star-btn" role="radio" aria-checked="false" aria-label="Valuta 4 stelle" data-star="4">★</button>
+                <button type="button" class="star-btn" role="radio" aria-checked="false" aria-label="Valuta 5 stelle" data-star="5">★</button>
+              </div>
+
+              <div id="review-google-box" class="review-outcome-box" hidden>
+                <p style="margin: 0 0 0.25rem; font-family: var(--font-serif); font-size: 1.15rem; font-weight: 600;">
+                  Grazie per le 5 stelle!
+                </p>
+                <p style="margin: 0 0 0.9rem; font-size: 0.85rem; color: rgba(14, 14, 16, 0.76);">
+                  Il tuo supporto aiuta URBAN STYLE a crescere a Calcinelli. Lascia la tua recensione su Google Maps:
+                </p>
+                <a
+                  href="https://www.google.com/maps/search/?api=1&query=URBAN+STYLE+PARRUCCHIERI+Via+Villa+Franca+2+Calcinelli"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="btn-dark"
+                  style="padding: 0.65rem 1rem; font-size: 0.85rem;"
+                >
+                  Lascia una recensione su Google Maps
+                </a>
+              </div>
+
+              <div id="review-private-box" class="review-outcome-box" hidden>
+                <form id="private-feedback-form" class="form-stack" style="gap: 0.75rem;">
+                  <p id="private-feedback-prompt" style="margin: 0; font-size: 0.875rem; font-weight: 500;"></p>
+                  <label for="private-feedback-text" class="sr-only">Messaggio privato per il salone</label>
+                  <textarea
+                    id="private-feedback-text"
+                    rows="3"
+                    class="field-input"
+                    style="background: #fff;"
+                    placeholder="Raccontaci la tua esperienza in salone..."
+                  ></textarea>
+                  <p class="field-error" id="err-feedback" hidden></p>
+                  <button type="submit" class="btn-dark" style="padding: 0.65rem 1rem; font-size: 0.85rem; align-self: flex-start;">
+                    Invia feedback privato al salone
+                  </button>
+                </form>
+
+                <div id="private-feedback-sent" role="status" hidden>
+                  <p style="margin: 0 0 0.25rem; font-family: var(--font-serif); font-size: 1.15rem; font-weight: 600;">
+                    Feedback ricevuto in privato
+                  </p>
+                  <p style="margin: 0; font-size: 0.85rem; color: rgba(14, 14, 16, 0.76);">
+                    Grazie per la tua sincerità. Il team di URBAN STYLE leggerà subito il tuo messaggio.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div>
+          <p class="footer-brand">URBAN STYLE PARRUCCHIERI</p>
+          <div class="footer-info">
+            <span>Via Villa Franca 2 · Calcinelli — Colli al Metauro (PU)</span>
+            <a href="https://wa.me/393509442307" target="_blank" rel="noopener noreferrer">+39 350 944 2307</a>
+          </div>
+        </div>
+
+        <nav class="footer-nav" aria-label="Link footer">
+          <a href="#esterno">Il Salone</a>
+          <a href="#tour">Tour 3D</a>
+          <a href="#servizi">Servizi</a>
+          <a href="#prenota">Prenota</a>
+          <a href="https://spotly-pro.vercel.app/" target="_blank" rel="noopener noreferrer">Club Spotly</a>
+        </nav>
+      </div>
+
+      <div class="footer-bottom">
+        <p style="margin: 0;">© <span id="footer-year"></span> URBAN STYLE PARRUCCHIERI · Calcinelli (PU)</p>
+        <p style="margin: 0;">Chiuso Domenica e Lunedì · Mar–Sab su appuntamento</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      'use strict';
+
+      var WHATSAPP_NUMBER = '393509442307';
+      var BOOKINGS_KEY = 'urban_style_bookings_v1';
+      var FEEDBACK_KEY = 'urban_style_private_feedback_v1';
+      var ITALIAN_DAYS = ['Domenica', 'Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'];
+
+      var HOTSPOTS = {
+        styling: {
+          meta: '01. Postazioni Styling · Consulenza morfologica inclusa',
+          title: 'Postazioni Styling — Taglio Uomo & Piega a Onde',
+          desc: 'Specchi ad arco retroilluminati e rovere miele: qui nascono tagli sartoriali maschili, sfumature pulite e pieghe a onde morbide con tenuta naturale.',
+          service: 'Taglio Uomo & Piega a Onde'
+        },
+        colorbar: {
+          meta: '02. Color Bar · Formule protettive personalizzate',
+          title: 'Color Bar — Balayage & Effetti Luce',
+          desc: 'Il cuore cromatico del salone: miscelazioni su misura a basso impatto, schiariture sfumate a mano libera e gloss illuminanti effetto seta.',
+          service: 'Balayage & Effetti Luce'
+        },
+        benessere: {
+          meta: '03. Area Benessere · Esperienza relax a luce soffusa',
+          title: 'Area Benessere — Trattamenti alla Cheratina',
+          desc: 'Poltrone reclinabili in un’alcova riservata a luce calda per rituali ristrutturanti alla cheratina, massaggio cute e disciplina anti-crespo.',
+          service: 'Trattamenti alla Cheratina'
+        }
+      };
+
+      var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      document.getElementById('footer-year').textContent = String(new Date().getFullYear());
+
+      /* ---------- Image Graceful Fallback ---------- */
+      function attachImageFallback(imgId, label) {
+        var img = document.getElementById(imgId);
+        if (!img) return;
+        img.addEventListener('error', function () {
+          var fallback = document.createElement('div');
+          fallback.className = 'hero-fallback';
+          fallback.textContent = label;
+          img.replaceWith(fallback);
+        });
+      }
+      attachImageFallback('hero-exterior-img', 'URBAN style PARRUCCHIERI');
+      attachImageFallback('hero-interior-img', 'URBAN STYLE · Interno');
+      attachImageFallback('tour-interior-img', 'Tour 3D Salone');
+      attachImageFallback('balayage-img', 'Balayage & Piega a Onde');
+
+      /* ---------- Navbar & Mobile Drawer ---------- */
+      var header = document.getElementById('site-header');
+      var mobileToggle = document.getElementById('mobile-menu-toggle');
+      var mobileDrawer = document.getElementById('mobile-drawer');
+
+      function updateHeaderScroll() {
+        if (window.scrollY > 40) {
+          header.classList.add('is-scrolled');
+        } else {
+          header.classList.remove('is-scrolled');
+        }
+      }
+      updateHeaderScroll();
+
+      mobileToggle.addEventListener('click', function () {
+        var isOpen = mobileDrawer.classList.toggle('is-open');
+        header.classList.toggle('menu-open', isOpen);
+        mobileToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        mobileToggle.setAttribute('aria-label', isOpen ? 'Chiudi menu' : 'Apri menu');
+      });
+
+      mobileDrawer.querySelectorAll('a').forEach(function (link) {
+        link.addEventListener('click', function () {
+          mobileDrawer.classList.remove('is-open');
+          header.classList.remove('menu-open');
+          mobileToggle.setAttribute('aria-expanded', 'false');
+        });
+      });
+
+      function scrollToBookingSection(serviceValue) {
+        if (serviceValue) {
+          var select = document.getElementById('booking-service');
+          select.value = serviceValue;
+        }
+        mobileDrawer.classList.remove('is-open');
+        header.classList.remove('menu-open');
+        document.getElementById('prenota').scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+      }
+
+      document.getElementById('nav-book-btn').addEventListener('click', function () {
+        scrollToBookingSection();
+      });
+      document.getElementById('hero-book-btn').addEventListener('click', function () {
+        scrollToBookingSection();
+      });
+
+      /* ---------- Act 1: 3D Hero Scroll Portal ---------- */
+      var heroSection = document.getElementById('esterno');
+      var heroExterior = document.getElementById('hero-exterior-layer');
+      var heroInterior = document.getElementById('hero-interior-layer');
+      var heroCopy = document.getElementById('hero-copy');
+      var heroRaf = 0;
+
+      function updateHeroPortal() {
+        if (prefersReducedMotion) return;
+        var rect = heroSection.getBoundingClientRect();
+        var scrollable = Math.max(1, heroSection.offsetHeight - window.innerHeight);
+        var progress = Math.min(1, Math.max(0, -rect.top / scrollable));
+        var eased = 1 - Math.pow(1 - progress, 2);
+        var exteriorScale = 1 + 0.85 * eased;
+
+        var fadeStart = 0.45;
+        var fadeEnd = 0.92;
+        var fadeT = Math.min(1, Math.max(0, (progress - fadeStart) / (fadeEnd - fadeStart)));
+        var exteriorOpacity = 1 - fadeT;
+        var interiorOpacity = fadeT;
+        var interiorScale = 1 + 0.14 * (1 - fadeT);
+        var copyOpacity = Math.max(0.25, 1 - progress * 0.95);
+
+        heroExterior.style.transform = 'scale(' + exteriorScale.toFixed(4) + ') translateZ(0)';
+        heroExterior.style.opacity = exteriorOpacity.toFixed(4);
+        heroInterior.style.transform = 'scale(' + interiorScale.toFixed(4) + ') translateZ(0)';
+        heroInterior.style.opacity = interiorOpacity.toFixed(4);
+        heroCopy.style.opacity = copyOpacity.toFixed(4);
+        heroCopy.style.transform = 'translate3d(0, ' + (-progress * 28).toFixed(1) + 'px, 0)';
+      }
+
+      window.addEventListener('scroll', function () {
+        updateHeaderScroll();
+        if (!prefersReducedMotion) {
+          cancelAnimationFrame(heroRaf);
+          heroRaf = requestAnimationFrame(updateHeroPortal);
+        }
+      }, { passive: true });
+      window.addEventListener('resize', updateHeroPortal, { passive: true });
+      updateHeroPortal();
+
+      /* ---------- Pointer 3D Tilt Helper ---------- */
+      function attachTilt3D(element, maxY, maxX) {
+        if (!element || prefersReducedMotion) return;
+        var raf = 0;
+        element.addEventListener('pointermove', function (e) {
+          var rect = element.getBoundingClientRect();
+          var nx = (e.clientX - rect.left) / rect.width - 0.5;
+          var ny = (e.clientY - rect.top) / rect.height - 0.5;
+          var rY = Math.max(-maxY, Math.min(maxY, nx * (maxY * 1.6)));
+          var rX = Math.max(-maxX, Math.min(maxX, -ny * (maxX * 1.6)));
+          cancelAnimationFrame(raf);
+          raf = requestAnimationFrame(function () {
+            element.style.transform = 'rotateX(' + rX.toFixed(2) + 'deg) rotateY(' + rY.toFixed(2) + 'deg) translateZ(0)';
+          });
+        }, { passive: true });
+
+        element.addEventListener('pointerleave', function () {
+          cancelAnimationFrame(raf);
+          raf = requestAnimationFrame(function () {
+            element.style.transform = 'rotateX(0deg) rotateY(0deg) translateZ(0)';
+          });
+        }, { passive: true });
+      }
+
+      attachTilt3D(document.getElementById('tour-frame-3d'), 5, 4);
+      attachTilt3D(document.getElementById('balayage-card-3d'), 7, 6);
+
+      /* ---------- Act 2: Hotspots & Glassmorphism Card ---------- */
+      var activeHotspotId = 'colorbar';
+      var hotspotBtns = document.querySelectorAll('.hotspot-btn');
+      var zoneTabs = document.querySelectorAll('.zone-tab');
+      var glassDesktop = document.getElementById('glass-card-desktop');
+      var glassMobile = document.getElementById('glass-card-mobile');
+
+      function renderHotspot(id) {
+        activeHotspotId = id;
+        hotspotBtns.forEach(function (btn) {
+          var match = btn.getAttribute('data-hotspot') === id;
+          btn.classList.toggle('is-active', match);
+          btn.setAttribute('aria-expanded', match ? 'true' : 'false');
+        });
+        zoneTabs.forEach(function (tab) {
+          tab.classList.toggle('is-active', tab.getAttribute('data-zone') === id);
+        });
+
+        if (!id || !HOTSPOTS[id]) {
+          glassDesktop.classList.remove('is-visible');
+          glassMobile.classList.remove('is-visible');
+          return;
+        }
+
+        var data = HOTSPOTS[id];
+        document.getElementById('glass-meta-desktop').textContent = data.meta;
+        document.getElementById('glass-title-desktop').textContent = data.title;
+        document.getElementById('glass-desc-desktop').textContent = data.desc;
+
+        document.getElementById('glass-meta-mobile').textContent = data.meta;
+        document.getElementById('glass-title-mobile').textContent = data.title;
+        document.getElementById('glass-desc-mobile').textContent = data.desc;
+
+        glassDesktop.classList.add('is-visible');
+        glassMobile.classList.add('is-visible');
+      }
+
+      hotspotBtns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var id = btn.getAttribute('data-hotspot');
+          renderHotspot(activeHotspotId === id ? '' : id);
+        });
+      });
+
+      zoneTabs.forEach(function (tab) {
+        tab.addEventListener('click', function () {
+          renderHotspot(tab.getAttribute('data-zone'));
+        });
+      });
+
+      document.getElementById('glass-close-desktop').addEventListener('click', function () {
+        renderHotspot('');
+      });
+      document.getElementById('glass-close-mobile').addEventListener('click', function () {
+        renderHotspot('');
+      });
+
+      function bookActiveHotspot() {
+        var data = HOTSPOTS[activeHotspotId];
+        scrollToBookingSection(data ? data.service : '');
+      }
+      document.getElementById('glass-book-desktop').addEventListener('click', bookActiveHotspot);
+      document.getElementById('glass-book-mobile').addEventListener('click', bookActiveHotspot);
+      renderHotspot('colorbar');
+
+      /* ---------- Act 3: Prima / Dopo & Service Pre-selection ---------- */
+      var balayageImg = document.getElementById('balayage-img');
+      var balayageKicker = document.getElementById('balayage-kicker');
+      var balayageTitle = document.getElementById('balayage-title');
+
+      document.querySelectorAll('.compare-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var mode = btn.getAttribute('data-compare');
+          document.querySelectorAll('.compare-btn').forEach(function (b) {
+            b.classList.toggle('is-active', b === btn);
+          });
+          if (mode === 'prima') {
+            balayageImg.classList.add('is-before');
+            balayageKicker.textContent = 'Base di Partenza · Tono Spento e Lunghezze Disidratate';
+            balayageTitle.textContent = 'Diagnosi iniziale prima del rituale Color Bar';
+          } else {
+            balayageImg.classList.remove('is-before');
+            balayageKicker.textContent = 'Risultato Finale · Schiaritura Miele & Onde Morbide';
+            balayageTitle.textContent = 'Dimensione calda senza stacchi alla ricrescita';
+          }
+        });
+      });
+
+      document.querySelectorAll('[data-preselect]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          scrollToBookingSection(btn.getAttribute('data-preselect'));
+        });
+      });
+
+      /* ---------- Act 4: Smart Booking Schedule & WhatsApp ---------- */
+      function parseLocalDate(dateStr) {
+        var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec((dateStr || '').trim());
+        if (!m) return null;
+        var y = Number(m[1]);
+        var mo = Number(m[2]);
+        var d = Number(m[3]);
+        var dt = new Date(y, mo - 1, d);
+        if (dt.getFullYear() !== y || dt.getMonth() !== mo - 1 || dt.getDate() !== d) return null;
+        return dt;
+      }
+
+      function formatYMD(dt) {
+        return (
+          dt.getFullYear() +
+          '-' +
+          String(dt.getMonth() + 1).padStart(2, '0') +
+          '-' +
+          String(dt.getDate()).padStart(2, '0')
+        );
+      }
+
+      function formatItalianDate(dateStr) {
+        var dt = parseLocalDate(dateStr);
+        if (!dt) return dateStr;
+        return dt.toLocaleDateString('it-IT', {
+          weekday: 'long',
+          day: 'numeric',
+          month: 'long',
+          year: 'numeric'
+        });
+      }
+
+      function toMinutes(hhmm) {
+        var parts = hhmm.split(':');
+        return Number(parts[0]) * 60 + Number(parts[1]);
+      }
+
+      function toHHMM(min) {
+        return String(Math.floor(min / 60)).padStart(2, '0') + ':' + String(min % 60).padStart(2, '0');
+      }
+
+      function buildSlots(ranges) {
+        var list = [];
+        ranges.forEach(function (r) {
+          for (var t = toMinutes(r.start); t <= toMinutes(r.end) - 30; t += 30) {
+            list.push(toHHMM(t));
+          }
+        });
+        return list;
+      }
+
+      function getScheduleForDate(dateStr) {
+        var dt = parseLocalDate(dateStr);
+        if (!dt) {
+          return { isOpen: false, dayName: 'Data non valida', summary: 'Seleziona una data valida', ranges: [], slots: [] };
+        }
+        var day = dt.getDay();
+        var dayName = ITALIAN_DAYS[day];
+        if (day === 0 || day === 1) {
+          return { isOpen: false, dayName: dayName, summary: 'Chiuso Domenica e Lunedì', ranges: [], slots: [] };
+        }
+        if (day === 3) {
+          var wedRanges = [
+            { start: '08:30', end: '12:30', label: 'Mattina' },
+            { start: '16:30', end: '21:00', label: 'Sera (Apertura Serale)' }
+          ];
+          return { isOpen: true, dayName: dayName, summary: '08:30–12:30 / 16:30–21:00', ranges: wedRanges, slots: buildSlots(wedRanges) };
+        }
+        if (day === 6) {
+          var satRanges = [{ start: '08:30', end: '18:00', label: 'Orario continuato' }];
+          return { isOpen: true, dayName: dayName, summary: '08:30–18:00', ranges: satRanges, slots: buildSlots(satRanges) };
+        }
+        var stdRanges = [
+          { start: '08:30', end: '12:30', label: 'Mattina' },
+          { start: '14:30', end: '19:00', label: 'Pomeriggio' }
+        ];
+        return { isOpen: true, dayName: dayName, summary: '08:30–12:30 / 14:30–19:00', ranges: stdRanges, slots: buildSlots(stdRanges) };
+      }
+
+      function getNextOpenDate() {
+        var now = new Date();
+        var cursor = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        for (var i = 0; i < 14; i++) {
+          var ymd = formatYMD(cursor);
+          if (getScheduleForDate(ymd).isOpen) return ymd;
+          cursor.setDate(cursor.getDate() + 1);
+        }
+        return formatYMD(now);
+      }
+
+      var dateInput = document.getElementById('booking-date');
+      var dayStatusText = document.getElementById('day-status-text');
+      var slotsContainer = document.getElementById('slots-container');
+      var selectedSlot = '';
+
+      dateInput.value = getNextOpenDate();
+
+      function renderSlotsForDate() {
+        var sched = getScheduleForDate(dateInput.value);
+        dayStatusText.textContent = sched.dayName + ' · ' + sched.summary;
+        if (!sched.isOpen || sched.slots.indexOf(selectedSlot) === -1) {
+          selectedSlot = '';
+        }
+
+        slotsContainer.innerHTML = '';
+        if (!sched.isOpen) {
+          var alertDiv = document.createElement('div');
+          alertDiv.className = 'closed-alert';
+          alertDiv.setAttribute('role', 'alert');
+          alertDiv.textContent =
+            'Il salone è chiuso di ' +
+            sched.dayName.toLowerCase() +
+            ' (chiuso domenica e lunedì). Seleziona un giorno da martedì a sabato.';
+          slotsContainer.appendChild(alertDiv);
+          return;
+        }
+
+        sched.ranges.forEach(function (range) {
+          var group = document.createElement('div');
+          group.className = 'slots-group';
+
+          var p = document.createElement('p');
+          p.className = 'slots-period-label';
+          p.textContent = range.label + ' (' + range.start + '–' + range.end + ')';
+          group.appendChild(p);
+
+          var wrap = document.createElement('div');
+          wrap.className = 'slots-wrap';
+
+          sched.slots
+            .filter(function (s) { return s >= range.start && s < range.end; })
+            .forEach(function (slot) {
+              var btn = document.createElement('button');
+              btn.type = 'button';
+              btn.className = 'slot-btn' + (selectedSlot === slot ? ' is-picked' : '');
+              btn.textContent = slot;
+              btn.setAttribute('aria-pressed', selectedSlot === slot ? 'true' : 'false');
+              btn.addEventListener('click', function () {
+                selectedSlot = slot;
+                document.getElementById('err-slot').hidden = true;
+                wrap.closest('#slots-container').querySelectorAll('.slot-btn').forEach(function (other) {
+                  var active = other.textContent === slot;
+                  other.classList.toggle('is-picked', active);
+                  other.setAttribute('aria-pressed', active ? 'true' : 'false');
+                });
+              });
+              wrap.appendChild(btn);
+            });
+
+          group.appendChild(wrap);
+          slotsContainer.appendChild(group);
+        });
+      }
+
+      dateInput.addEventListener('change', function () {
+        document.getElementById('err-date').hidden = true;
+        renderSlotsForDate();
+      });
+      renderSlotsForDate();
+
+      /* Optional Webhook Toggle */
+      var webhookToggle = document.getElementById('webhook-toggle');
+      var webhookBox = document.getElementById('webhook-box');
+      webhookToggle.addEventListener('click', function () {
+        var willShow = webhookBox.hidden;
+        webhookBox.hidden = !willShow;
+        webhookToggle.setAttribute('aria-expanded', willShow ? 'true' : 'false');
+        webhookToggle.textContent = willShow
+          ? 'Nascondi notifica webhook opzionale'
+          : 'Configura notifica webhook opzionale';
+      });
+
+      /* Bookings LocalStorage History */
+      function loadBookings() {
+        try {
+          var raw = localStorage.getItem(BOOKINGS_KEY);
+          return raw ? JSON.parse(raw) : [];
+        } catch (e) {
+          return [];
+        }
+      }
+
+      function renderBookingsHistory() {
+        var list = loadBookings();
+        var wrap = document.getElementById('history-wrap');
+        var ul = document.getElementById('history-list');
+        if (!list.length) {
+          wrap.hidden = true;
+          return;
+        }
+        wrap.hidden = false;
+        document.getElementById('history-title').textContent =
+          'Le tue richieste salvate su questo dispositivo (' + list.length + ')';
+        ul.innerHTML = '';
+
+        list.forEach(function (item) {
+          var li = document.createElement('li');
+          li.className = 'history-item';
+
+          var left = document.createElement('div');
+          var title = document.createElement('p');
+          title.style.margin = '0';
+          title.style.fontWeight = '600';
+          title.textContent = item.service + ' · ' + item.fullName;
+
+          var sub = document.createElement('p');
+          sub.style.margin = '0.15rem 0 0';
+          sub.style.color = 'rgba(14, 14, 16, 0.7)';
+          sub.textContent = item.formattedDate + ' · ore ' + item.timeSlot;
+
+          left.appendChild(title);
+          left.appendChild(sub);
+
+          var link = document.createElement('a');
+          link.href = item.whatsappUrl;
+          link.target = '_blank';
+          link.rel = 'noopener noreferrer';
+          link.style.fontWeight = '600';
+          link.style.color = 'var(--accent-bronze)';
+          link.textContent = 'Apri WhatsApp';
+
+          li.appendChild(left);
+          li.appendChild(link);
+          ul.appendChild(li);
+        });
+      }
+
+      document.getElementById('history-clear-btn').addEventListener('click', function () {
+        try { localStorage.removeItem(BOOKINGS_KEY); } catch (e) {}
+        renderBookingsHistory();
+      });
+      renderBookingsHistory();
+
+      /* Form Submission */
+      var bookingForm = document.getElementById('booking-form');
+      var confirmCard = document.getElementById('booking-confirm-card');
+
+      function setFieldError(id, msg) {
+        var el = document.getElementById(id);
+        if (msg) {
+          el.textContent = msg;
+          el.hidden = false;
+        } else {
+          el.hidden = true;
+        }
+      }
+
+      bookingForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        var service = document.getElementById('booking-service').value;
+        var date = dateInput.value;
+        var fullName = document.getElementById('booking-name').value.trim();
+        var whatsapp = document.getElementById('booking-whatsapp').value.trim();
+        var webhookUrl = document.getElementById('booking-webhook').value.trim();
+        var sched = getScheduleForDate(date);
+
+        var hasError = false;
+        if (!service) {
+          setFieldError('err-service', 'Seleziona un servizio dal menu.');
+          hasError = true;
+        } else {
+          setFieldError('err-service', '');
+        }
+
+        if (!date || !sched.isOpen) {
+          setFieldError('err-date', sched.isOpen ? 'Seleziona una data valida.' : 'Il salone è chiuso di ' + sched.dayName.toLowerCase() + '.');
+          hasError = true;
+        } else {
+          setFieldError('err-date', '');
+        }
+
+        if (!selectedSlot || sched.slots.indexOf(selectedSlot) === -1) {
+          setFieldError('err-slot', sched.isOpen ? 'Seleziona una fascia oraria disponibile.' : 'Scegli prima un giorno di apertura.');
+          hasError = true;
+        } else {
+          setFieldError('err-slot', '');
+        }
+
+        if (fullName.length < 2) {
+          setFieldError('err-name', 'Inserisci nome e cognome (almeno 2 caratteri).');
+          hasError = true;
+        } else {
+          setFieldError('err-name', '');
+        }
+
+        if (whatsapp.replace(/\D/g, '').length < 8) {
+          setFieldError('err-whatsapp', 'Inserisci un numero WhatsApp valido (es. +39 333 1234567).');
+          hasError = true;
+        } else {
+          setFieldError('err-whatsapp', '');
+        }
+
+        if (hasError) return;
+
+        var formattedDate = formatItalianDate(date);
+        var waMessage = [
+          'Ciao URBAN STYLE PARRUCCHIERI,',
+          'vorrei confermare questo appuntamento:',
+          '• Servizio: ' + service,
+          '• Data: ' + formattedDate,
+          '• Orario: ' + selectedSlot,
+          '• Cliente: ' + fullName,
+          '• WhatsApp: ' + whatsapp,
+          '',
+          'Sede: Via Villa Franca 2, Calcinelli (Colli al Metauro)'
+        ].join('\n');
+
+        var waUrl = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(waMessage);
+
+        var record = {
+          id: 'bk_' + Date.now(),
+          service: service,
+          date: date,
+          formattedDate: formattedDate,
+          timeSlot: selectedSlot,
+          fullName: fullName,
+          whatsapp: whatsapp,
+          whatsappUrl: waUrl,
+          createdAt: new Date().toISOString()
+        };
+
+        var saved = loadBookings();
+        saved.unshift(record);
+        try {
+          localStorage.setItem(BOOKINGS_KEY, JSON.stringify(saved.slice(0, 6)));
+        } catch (err) {}
+        renderBookingsHistory();
+
+        var dl = document.getElementById('confirm-details');
+        dl.innerHTML = '';
+        [
+          ['Servizio', service],
+          ['Data e Orario', formattedDate + ' · ' + selectedSlot],
+          ['Cliente', fullName],
+          ['WhatsApp cliente', whatsapp]
+        ].forEach(function (pair) {
+          var div = document.createElement('div');
+          var dt = document.createElement('dt');
+          dt.textContent = pair[0];
+          var dd = document.createElement('dd');
+          dd.textContent = pair[1];
+          div.appendChild(dt);
+          div.appendChild(dd);
+          dl.appendChild(div);
+        });
+
+        document.getElementById('confirm-wa-preview').textContent = waMessage;
+        document.getElementById('confirm-wa-link').href = waUrl;
+
+        var webhookMsg = document.getElementById('webhook-status-msg');
+        webhookMsg.hidden = true;
+
+        bookingForm.hidden = true;
+        confirmCard.hidden = false;
+
+        if (webhookUrl) {
+          fetch(webhookUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(record)
+          }).then(function (res) {
+            webhookMsg.textContent = res.ok
+              ? 'Notifica webhook inviata correttamente.'
+              : 'Webhook non raggiungibile: la prenotazione è comunque salvata e pronta su WhatsApp.';
+            webhookMsg.hidden = false;
+          }).catch(function () {
+            webhookMsg.textContent = 'Webhook non raggiungibile: la prenotazione è comunque salvata e pronta su WhatsApp.';
+            webhookMsg.hidden = false;
+          });
+        }
+      });
+
+      document.getElementById('new-booking-btn').addEventListener('click', function () {
+        confirmCard.hidden = true;
+        bookingForm.hidden = false;
+      });
+
+      /* ---------- Spotly 1-5 Star Review Router ---------- */
+      var selectedRating = 0;
+      var starBtns = document.querySelectorAll('.star-btn');
+      var googleBox = document.getElementById('review-google-box');
+      var privateBox = document.getElementById('review-private-box');
+      var privateForm = document.getElementById('private-feedback-form');
+      var privateSent = document.getElementById('private-feedback-sent');
+
+      function paintStars(count) {
+        starBtns.forEach(function (btn) {
+          var val = Number(btn.getAttribute('data-star'));
+          btn.classList.toggle('is-lit', val <= count);
+          btn.setAttribute('aria-checked', val === selectedRating ? 'true' : 'false');
+        });
+      }
+
+      starBtns.forEach(function (btn) {
+        var val = Number(btn.getAttribute('data-star'));
+        btn.addEventListener('mouseenter', function () { paintStars(val); });
+        btn.addEventListener('mouseleave', function () { paintStars(selectedRating); });
+        btn.addEventListener('click', function () {
+          selectedRating = val;
+          paintStars(selectedRating);
+          document.getElementById('err-feedback').hidden = true;
+
+          if (val === 5) {
+            googleBox.hidden = false;
+            privateBox.hidden = true;
+          } else {
+            googleBox.hidden = true;
+            privateBox.hidden = false;
+            privateForm.hidden = false;
+            privateSent.hidden = true;
+            document.getElementById('private-feedback-prompt').textContent =
+              'Hai scelto ' + val + ' ' + (val === 1 ? 'stella' : 'stelle') + ': scrivici in privato cosa possiamo migliorare.';
+          }
+        });
+      });
+
+      privateForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var note = document.getElementById('private-feedback-text').value.trim();
+        var err = document.getElementById('err-feedback');
+        if (note.length < 5) {
+          err.textContent = 'Scrivi almeno una breve nota per aiutarci a migliorare.';
+          err.hidden = false;
+          return;
+        }
+        err.hidden = true;
+        try {
+          var raw = localStorage.getItem(FEEDBACK_KEY);
+          var list = raw ? JSON.parse(raw) : [];
+          list.unshift({
+            id: 'fb_' + Date.now(),
+            stars: selectedRating,
+            message: note,
+            createdAt: new Date().toISOString()
+          });
+          localStorage.setItem(FEEDBACK_KEY, JSON.stringify(list.slice(0, 20)));
+        } catch (ex) {}
+        privateForm.hidden = true;
+        privateSent.hidden = false;
+      });
+    })();
+  </script>
+</body>
 </html>
