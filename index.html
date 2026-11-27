@@ -1143,27 +1143,6 @@
       color: #b91c1c;
     }
 
-    .webhook-toggle {
-      border: 0;
-      padding: 0;
-      background: transparent;
-      color: var(--accent-bronze);
-      font-size: 0.78rem;
-      font-weight: 600;
-      text-decoration: underline;
-      text-underline-offset: 4px;
-      cursor: pointer;
-      align-self: flex-start;
-    }
-
-    .webhook-toggle:hover {
-      color: var(--text-dark);
-    }
-
-    .webhook-box {
-      margin-top: 0.5rem;
-    }
-
     /* Confirmation Card */
     .confirm-card {
       border-radius: 12px;
@@ -1562,7 +1541,7 @@
       <div class="hero-sticky">
         <div class="hero-layer hero-interior-layer" id="hero-interior-layer">
           <img
-            src="interno.jpg"
+            src="interno.png"
             alt="Interno del salone URBAN STYLE PARRUCCHIERI con postazioni in legno miele"
             id="hero-interior-img"
           />
@@ -1570,7 +1549,7 @@
 
         <div class="hero-layer hero-exterior-layer" id="hero-exterior-layer">
           <img
-            src="esterno.jpg"
+            src="esterno.png"
             alt="Facciata esterna di URBAN STYLE PARRUCCHIERI in Via Villa Franca 2 a Calcinelli"
             id="hero-exterior-img"
           />
@@ -1626,7 +1605,7 @@
         <div class="perspective-stage">
           <div class="tour-frame-3d" id="tour-frame-3d">
             <img
-              src="interno.jpg"
+              src="interno.png"
               alt="Tour interno interattivo di URBAN STYLE PARRUCCHIERI"
               id="tour-interior-img"
             />
@@ -1745,7 +1724,7 @@
           <div class="perspective-stage">
             <div class="balayage-card-3d" id="balayage-card-3d">
               <img
-                src="balayage.jpg"
+                src="balayage.png"
                 alt="Prima e Dopo — Balayage luminoso miele caramello e piega a onde"
                 id="balayage-img"
               />
@@ -1910,18 +1889,6 @@
                 </div>
               </div>
 
-              <div>
-                <button type="button" class="webhook-toggle" id="webhook-toggle" aria-expanded="false">
-                  Configura notifica webhook opzionale
-                </button>
-                <div class="webhook-box" id="webhook-box" hidden>
-                  <label class="field-label" style="font-size: 0.78rem; font-weight: 500;" for="booking-webhook">
-                    URL Webhook (es. Make / Zapier / n8n — opzionale)
-                  </label>
-                  <input id="booking-webhook" type="url" class="field-input" placeholder="https://hook.eu1.make.com/..." />
-                </div>
-              </div>
-
               <button type="submit" class="btn-dark" style="width: 100%;">
                 <span>Conferma Appuntamento</span>
               </button>
@@ -1947,7 +1914,6 @@
                 Anteprima messaggio strutturato per +39 350 944 2307:
               </p>
               <pre class="whatsapp-preview" id="confirm-wa-preview"></pre>
-              <p id="webhook-status-msg" style="margin: 0 0 1rem; font-size: 0.78rem; color: var(--accent-gold);" hidden></p>
 
               <div class="confirm-actions">
                 <a id="confirm-wa-link" href="#" target="_blank" rel="noopener noreferrer" class="btn-primary">
@@ -2526,18 +2492,6 @@
       });
       renderSlotsForDate();
 
-      /* Optional Webhook Toggle */
-      var webhookToggle = document.getElementById('webhook-toggle');
-      var webhookBox = document.getElementById('webhook-box');
-      webhookToggle.addEventListener('click', function () {
-        var willShow = webhookBox.hidden;
-        webhookBox.hidden = !willShow;
-        webhookToggle.setAttribute('aria-expanded', willShow ? 'true' : 'false');
-        webhookToggle.textContent = willShow
-          ? 'Nascondi notifica webhook opzionale'
-          : 'Configura notifica webhook opzionale';
-      });
-
       /* Bookings LocalStorage History */
       function loadBookings() {
         try {
@@ -2620,7 +2574,6 @@
         var date = dateInput.value;
         var fullName = document.getElementById('booking-name').value.trim();
         var whatsapp = document.getElementById('booking-whatsapp').value.trim();
-        var webhookUrl = document.getElementById('booking-webhook').value.trim();
         var sched = getScheduleForDate(date);
 
         var hasError = false;
@@ -2716,27 +2669,8 @@
         document.getElementById('confirm-wa-preview').textContent = waMessage;
         document.getElementById('confirm-wa-link').href = waUrl;
 
-        var webhookMsg = document.getElementById('webhook-status-msg');
-        webhookMsg.hidden = true;
-
         bookingForm.hidden = true;
         confirmCard.hidden = false;
-
-        if (webhookUrl) {
-          fetch(webhookUrl, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(record)
-          }).then(function (res) {
-            webhookMsg.textContent = res.ok
-              ? 'Notifica webhook inviata correttamente.'
-              : 'Webhook non raggiungibile: la prenotazione è comunque salvata e pronta su WhatsApp.';
-            webhookMsg.hidden = false;
-          }).catch(function () {
-            webhookMsg.textContent = 'Webhook non raggiungibile: la prenotazione è comunque salvata e pronta su WhatsApp.';
-            webhookMsg.hidden = false;
-          });
-        }
       });
 
       document.getElementById('new-booking-btn').addEventListener('click', function () {
